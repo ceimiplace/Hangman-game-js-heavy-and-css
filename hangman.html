@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        margin-inline: auto;
+        position: relative;
+        height: 500px;
+        width: 320px;
+        border: 1px solid red;
+      }
+      .stick {
+        position: absolute;
+        width: 100px;
+        height: 2px;
+        background-color: black;
+      }
+      .stick.one {
+        transform: rotate(-45deg);
+        top: 70%;
+        left: 10%;
+      }
+      .stick.two {
+        transform: rotate(45deg);
+        top: 70%;
+        left: 33%;
+      }
+      .stick.three {
+        transform: rotate(90deg);
+        width: 150px;
+        top: 48%;
+        left: 14%;
+      }
+      .stick.four {
+        top: 33%;
+        left: 37%;
+      }
+      .stick.five {
+        width: 30px;
+        top: 36%;
+        transform: rotate(90deg);
+        left: 63%;
+      }
+      .body {
+        position: absolute;
+        width: 30px;
+        background-color: black;
+        border: 1px solid black;
+      }
+      .body.head {
+        height: 30px;
+        border-radius: 50%;
+        background-color: white;
+        top: 39%;
+        left: 63%;
+      }
+      .body.torso {
+        top: 51.5%;
+        transform: rotate(90deg);
+        width: 60px;
+        left: 58%;
+      }
+      .body.left-arm {
+        top: 50%;
+        transform: rotate(-45deg);
+        left: 58%;
+      }
+      .body.right-arm {
+        top: 50%;
+        left: 68%;
+        transform: rotate(45deg);
+      }
+      .body.left-leg {
+        top: 60%;
+        transform: rotate(-45deg);
+        left: 58%;
+      }
+      .body.right-leg {
+        top: 60%;
+        left: 68%;
+        transform: rotate(45deg);
+      }
+      .hidden {
+        display: none;
+      }
+      .container-words {
+        flex-basis: 200px;
+        width: 100%;
+      }
+      body {
+        height: 90vh;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .container-words {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 20px;
+        text-align: center;
+      }
+      .container-words * {
+        flex: 1;
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="stick one"></div>
+      <div class="stick two"></div>
+      <div class="stick three"></div>
+      <div class="stick four"></div>
+      <div class="stick five"></div>
+      <div class="body head hidden"></div>
+      <div class="body torso hidden"></div>
+      <div class="body left-arm hidden"></div>
+      <div class="body right-arm hidden"></div>
+      <div class="body left-leg hidden"></div>
+      <div class="body right-leg hidden"></div>
+    </div>
+    <button class="start">Start game</button>
+    <div class="container-words"></div>
+    <script>
+      let containerWords = document.querySelector(".container-words");
+      const start = document.querySelector(".start");
+      window.addEventListener("keydown", (e) => {
+        console.log(e.key.toLowerCase());
+      });
+      start.addEventListener("click", function () {
+        game.picker();
+        this.setAttribute("disabled", "disabled");
+      });
+      const game = {
+        randomWords: ["car", "dad", "woman"],
+        chosenWord: null,
+        picker() {
+          if (!this.chosenWord) {
+            this.chosenWord =
+              this.randomWords[
+                Math.floor(this.randomWords.length * Math.random()) + 1
+              ];
+            this.createLiner();
+          }
+        },
+        chosenArray: null,
+        createLiner() {
+          this.chosenArray = this.chosenWord.split("");
+          if (Array.isArray(this.chosenArray)) {
+            this.chosenArray.forEach((elem) => {
+              let dive = document.createElement("div");
+              dive.innerHTML = `<span class="hidden" data-key=${elem}>${elem}</span>`;
+              dive.style.borderBottom = "1px solid black";
+              containerWords.appendChild(dive);
+            });
+          }
+          let spans = document.querySelectorAll("span");
+          spans[0].classList.remove("hidden");
+          spans[spans.length - 1].classList.remove("hidden");
+        },
+      };
+    </script>
+  </body>
+</html>
