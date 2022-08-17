@@ -139,13 +139,13 @@
         this.setAttribute("disabled", "disabled");
       });
       const game = {
-        randomWords: ["car", "dad", "woman"],
+        randomWords: ["various", "indestrctible"],
         chosenWord: null,
         picker() {
           if (!this.chosenWord) {
             this.chosenWord =
               this.randomWords[
-                Math.floor(this.randomWords.length * Math.random()) + 1
+                Math.floor(this.randomWords.length * Math.random())
               ];
             this.createLiner();
           }
@@ -161,9 +161,24 @@
               containerWords.appendChild(dive);
             });
           }
+          this.showFirstLetter();
+        },
+        showFirstLetter() {
           let spans = document.querySelectorAll("span");
-          spans[0].classList.remove("hidden");
-          spans[spans.length - 1].classList.remove("hidden");
+
+          let firstLetter = document.querySelectorAll(
+            `span[data-key="${this.chosenArray[0]}"]`
+          );
+          console.log(firstLetter);
+          firstLetter.forEach((elem) => {
+            elem.classList.remove("hidden");
+          });
+          let lastLetter = document.querySelectorAll(
+            `span[data-key="${this.chosenArray[this.chosenArray.length - 1]}"]`
+          );
+          lastLetter.forEach((elem) => {
+            elem.classList.remove("hidden");
+          });
         },
       };
     </script>
