@@ -131,15 +131,21 @@
     <script>
       let containerWords = document.querySelector(".container-words");
       const start = document.querySelector(".start");
-      window.addEventListener("keydown", (e) => {
-        console.log(e.key.toLowerCase());
-      });
+
       start.addEventListener("click", function () {
         game.picker();
         this.setAttribute("disabled", "disabled");
       });
       const game = {
-        randomWords: ["various", "indestrctible"],
+        wrongs: 0,
+        mistakeChecker() {
+          if (this.wrongs > 6) {
+            document.body.style.backgroundColor = "red";
+          } else {
+            document.querySelector(".body.hidden").classList.remove("hidden");
+          }
+        },
+        randomWords: ["various", "indestrctible", "decayed"],
         chosenWord: null,
         picker() {
           if (!this.chosenWord) {
@@ -181,6 +187,20 @@
           });
         },
       };
+      window.addEventListener("keydown", (e) => {
+        console.log(e.key.toLowerCase());
+        if (game.chosenArray.includes(e.key.toLowerCase())) {
+          let correctLetter = document.querySelectorAll(
+            `span[data-key="${e.key}"]`
+          );
+          correctLetter.forEach((elem) => {
+            elem.classList.remove("hidden");
+          });
+        } else {
+          game.wrongs = game.wrongs + 1;
+          game.mistakeChecker();
+        }
+      });
     </script>
   </body>
 </html>
