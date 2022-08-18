@@ -149,6 +149,11 @@
     .won {
       background-color: rgba(0, 255, 0, 0.763);
     }
+
+    .tried-letters,
+    .start {
+      margin-top: 20px;
+    }
   </style>
 </head>
 
@@ -167,6 +172,7 @@
     <div class="body right-leg hidden"></div>
   </div>
   <button class="start">Click me to start game</button>
+  <div class="tried-letters"></div>
   <div class="container-words"></div>
   <div class="message won hide">
     YOU WON!
@@ -176,10 +182,11 @@
     YOU LOSE!
     <button class="reset">RESET GAME!</button>
   </div>
-  <script>
-    let containerWords = document.querySelector(".container-words");
-    const start = document.querySelector(".start");
 
+  <script>
+    const containerWords = document.querySelector(".container-words");
+    const start = document.querySelector(".start");
+    const triedLettersContainer = document.querySelector(".tried-letters")
     start.addEventListener("click", function () {
       game.picker();
       this.setAttribute("disabled", "disabled");
@@ -278,14 +285,20 @@
             eventRemover();
           }
         } else {
-
+          game.triedLetters.push(e.key.toLowerCase())
+          triedLettersContainer.textContent = game.triedLetters;
           game.wrongs = game.wrongs + 1;
           game.mistakeChecker();
         }
       }
 
-      game.triedLetters.push(e.key.toLowerCase())
+
     }
+    //adding tried letters on the page
+    //<---------start
+
+    //<---------stop
+    //
     function eventRemover() {
       window.removeEventListener("keydown", hearing);
     }
@@ -302,6 +315,7 @@
         //stop---------
         game.wrongs = 0;
         game.triedLetters = [];
+        triedLettersContainer.innerHTML = ""
         game.chosenWord = null;
         game.chosenArray = null;
         containerWords.innerHTML = "";
