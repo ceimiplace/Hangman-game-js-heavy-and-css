@@ -124,6 +124,7 @@
       .hide {
         display: none;
       }
+
       .won {
         background-color: rgba(0, 255, 0, 0.763);
       }
@@ -143,7 +144,7 @@
       <div class="body left-leg hidden"></div>
       <div class="body right-leg hidden"></div>
     </div>
-    <button class="start">Start game</button>
+    <button class="start">Click me to start game</button>
     <div class="container-words"></div>
     <div class="message won hide">
       YOU WON!
@@ -171,7 +172,19 @@
             document.querySelector(".body.hidden").classList.remove("hidden");
           }
         },
-        randomWords: ["mom", "dad"],
+        randomWords: [
+          "mom",
+          "dad",
+          "various",
+          "first",
+          "value",
+          "work",
+          "step",
+          "blame",
+          "power",
+          "nothing",
+          "sunshine",
+        ],
         chosenWord: null,
         picker() {
           if (!this.chosenWord) {
