@@ -190,6 +190,7 @@
     start.addEventListener("click", function () {
       game.picker();
       this.setAttribute("disabled", "disabled");
+      window.addEventListener("keydown", hearing);
     });
     const game = {
 
@@ -265,7 +266,8 @@
         return true;
       }
     }
-    window.addEventListener("keydown", hearing);
+
+
     //remove events after game won or lost
     //in order to do that , we must go to window at event listeners and
     // to refractor the aarow function into a function declaration, so we can remove
@@ -320,7 +322,7 @@
         game.chosenArray = null;
         containerWords.innerHTML = "";
         start.disabled = false;
-        window.addEventListener("keydown", hearing);
+        eventRemover();
         let bodies = document.querySelectorAll(".body");
         bodies.forEach((elem) => {
           if (!elem.classList.contains("hidden")) {
