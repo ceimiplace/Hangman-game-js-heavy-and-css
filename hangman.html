@@ -145,8 +145,14 @@
     </div>
     <button class="start">Start game</button>
     <div class="container-words"></div>
-    <div class="won hide">YOU WON!</div>
-    <div class="lost hide">YOU LOSE!</div>
+    <div class="message won hide">
+      YOU WON!
+      <button class="reset">RESET GAME!</button>
+    </div>
+    <div class="message lost hide">
+      YOU LOSE!
+      <button class="reset">RESET GAME!</button>
+    </div>
     <script>
       let containerWords = document.querySelector(".container-words");
       const start = document.querySelector(".start");
@@ -241,6 +247,31 @@
       function eventRemover() {
         window.removeEventListener("keydown", hearing);
       }
+      //MAKING RESET BUTTON
+      let resetBtn = document.querySelectorAll(".reset");
+      resetBtn.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          //start--------remove win or loss screen
+          document.querySelectorAll(".message").forEach((elem) => {
+            if (!elem.classList.contains("hide")) {
+              elem.classList.add("hide");
+            }
+          });
+          //stop---------
+          game.wrongs = 0;
+          game.chosenWord = null;
+          game.chosenArray = null;
+          containerWords.innerHTML = "";
+          start.disabled = false;
+          window.addEventListener("keydown", hearing);
+          let bodies = document.querySelectorAll(".body");
+          bodies.forEach((elem) => {
+            if (!elem.classList.contains("hidden")) {
+              elem.classList.add("hidden");
+            }
+          });
+        });
+      });
     </script>
   </body>
 </html>
