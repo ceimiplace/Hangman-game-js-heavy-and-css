@@ -110,7 +110,8 @@
         flex: 1;
         font-size: 30px;
       }
-      .lost {
+      .lost,
+      .won {
         width: 100vw;
         height: calc(100vh + 120px);
         position: absolute;
@@ -122,6 +123,9 @@
       }
       .hide {
         display: none;
+      }
+      .won {
+        background-color: rgba(0, 255, 0, 0.763);
       }
     </style>
   </head>
@@ -141,6 +145,7 @@
     </div>
     <button class="start">Start game</button>
     <div class="container-words"></div>
+    <div class="won hide">YOU WON!</div>
     <div class="lost hide">YOU LOSE!</div>
     <script>
       let containerWords = document.querySelector(".container-words");
@@ -154,12 +159,13 @@
         wrongs: 0,
         mistakeChecker() {
           if (this.wrongs > 6) {
-            document.querySelector(".hide").classList.remove("hide");
+            document.querySelector(".lost.hide").classList.remove("hide");
+            eventRemover();
           } else {
             document.querySelector(".body.hidden").classList.remove("hidden");
           }
         },
-        randomWords: ["various", "indestrctible", "decayed"],
+        randomWords: ["mom", "dad"],
         chosenWord: null,
         picker() {
           if (!this.chosenWord) {
@@ -201,7 +207,20 @@
           });
         },
       };
-      window.addEventListener("keydown", (e) => {
+      function winnerChcker() {
+        let spanWithHide = document.querySelector(
+          ".container-words span.hidden"
+        );
+        if (!spanWithHide) {
+          return true;
+        }
+      }
+      window.addEventListener("keydown", hearing);
+      //remove events after game won or lost
+      //in order to do that , we must go to window at event listeners and
+      // to refractor the aarow function into a function declaration, so we can remove
+      //the event listener
+      function hearing(e) {
         console.log(e.key.toLowerCase());
         if (game.chosenArray.includes(e.key.toLowerCase())) {
           let correctLetter = document.querySelectorAll(
@@ -210,11 +229,18 @@
           correctLetter.forEach((elem) => {
             elem.classList.remove("hidden");
           });
+          if (winnerChcker()) {
+            document.querySelector(".won").classList.remove("hide");
+            eventRemover();
+          }
         } else {
           game.wrongs = game.wrongs + 1;
           game.mistakeChecker();
         }
-      });
+      }
+      function eventRemover() {
+        window.removeEventListener("keydown", hearing);
+      }
     </script>
   </body>
 </html>
