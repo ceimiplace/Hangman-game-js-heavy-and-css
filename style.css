@@ -1,0 +1,147 @@
+.container {
+  margin-inline: auto;
+  position: relative;
+  height: 500px;
+  width: 320px;
+  border: 1px solid black;
+}
+
+.stick {
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background-color: black;
+}
+
+.stick.one {
+  transform: rotate(-45deg);
+  top: 350px;
+  left: 32px;
+}
+
+.stick.two {
+  transform: rotate(45deg);
+  top: 350px;
+  left: 101px;
+}
+
+.stick.three {
+  transform: rotate(90deg);
+  width: 150px;
+  top: 240px;
+  left: 42px;
+}
+
+.stick.four {
+  top: 33%;
+  left: 37%;
+}
+
+.stick.five {
+  width: 30px;
+  top: 36%;
+  transform: rotate(90deg);
+  left: 63%;
+}
+
+.body {
+  position: absolute;
+  width: 30px;
+  background-color: black;
+  border: 1px solid black;
+}
+
+.body.head {
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  top: 39%;
+  left: 63%;
+}
+
+.body.torso {
+  top: 51.5%;
+  transform: rotate(90deg);
+  width: 60px;
+  left: 58%;
+}
+
+.body.left-arm {
+  top: 50%;
+  transform: rotate(-45deg);
+  left: 58%;
+}
+
+.body.right-arm {
+  top: 50%;
+  left: 68%;
+  transform: rotate(45deg);
+}
+
+.body.left-leg {
+  top: 60%;
+  transform: rotate(-45deg);
+  left: 58%;
+}
+
+.body.right-leg {
+  top: 60%;
+  left: 68%;
+  transform: rotate(45deg);
+}
+
+.hidden {
+  display: none;
+}
+
+.container-words {
+  flex-basis: 200px;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateY(-120px);
+  overflow: hidden;
+}
+
+.container-words {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  text-align: center;
+}
+
+.container-words * {
+  flex: 1;
+  font-size: 30px;
+}
+
+.lost,
+.won {
+  width: 100vw;
+  height: calc(100vh + 120px);
+  position: absolute;
+  background-color: rgba(255, 0, 0, 0.763);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}
+
+.hide {
+  display: none;
+}
+
+.won {
+  background-color: rgba(0, 255, 0, 0.763);
+}
+
+.tried-letters,
+.start {
+  margin-top: 20px;
+}
